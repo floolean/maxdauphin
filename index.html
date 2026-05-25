@@ -6,7 +6,7 @@
   <title>Max Dauphin — In Memoriam</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <!-- Theme: swap to style-light.css for the warm/light version -->
   <link rel="stylesheet" href="style-light.css" />
@@ -45,14 +45,7 @@
   <!-- ── PORTRAIT ── -->
   <div class="section" style="padding-top: 0; padding-bottom: 0;">
     <div class="portrait-wrap">
-      <!-- Add a portrait: <img src="portrait.jpg" alt="Max Dauphin" /> -->
-      <div class="portrait-placeholder">
-        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1">
-          <circle cx="24" cy="18" r="8"/>
-          <path d="M8 40c0-9 7-16 16-16s16 7 16 16"/>
-        </svg>
-        <span>Portrait</span>
-      </div>
+      <img src="portrait.jpg" alt="Max Dauphin" />
     </div>
   </div>
 
@@ -87,6 +80,58 @@
       He was 47 years old.
     </p>
   </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       PRIVATE POEM — written by Max to his wife.
+       To remove it from the page entirely, delete from here…
+       ══════════════════════════════════════════════════════════════ -->
+  <div class="section poem-section reveal">
+    <div class="poem-wrap" id="poem-wrap">
+
+      <div class="poem-header">
+        <div>
+          <p class="section-label" style="margin-bottom: 0.5rem;">For his wife</p>
+          <p class="poem-intro">A poem written by Max, in his own words.</p>
+        </div>
+        <button class="poem-toggle" id="poem-toggle" aria-expanded="false" aria-controls="poem-content">
+          <span class="poem-toggle-label">Read the poem</span>
+          <svg class="poem-toggle-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M4 6.5l5 5 5-5"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="poem-content" id="poem-content" aria-hidden="true">
+        <blockquote class="poem-body">
+          <p class="poem-stanza">
+            The first time I saw you, I knew something special would happen<br>
+            The first time we met, I felt really insecure<br>
+            The first time you left my house, my stomach kept on aching for a whole night
+          </p>
+          <p class="poem-stanza">
+            Even though you drive recklessly, I feel secure next to you sleeping in the car<br>
+            Even though I am jealous sometimes, I try to chase those feelings away<br>
+            Even though we lied, every day we trust one another
+          </p>
+          <p class="poem-stanza">
+            When you call me, my heart rejoices for your words are so kind<br>
+            When you make love to me, my body tremors with passion<br>
+            When we travel together, it is the happiest time of my life<br>
+            And when you said you wanted to care for me, my heart stopped beating<br>
+            in hope this moment would never end.
+          </p>
+          <p class="poem-stanza poem-closing">
+            For every part of my being loves you with bliss,<br>
+            grateful that I can also care for you.
+          </p>
+        </blockquote>
+      </div>
+
+    </div>
+  </div>
+  <!-- ══════════════════════════════════════════════════════════════
+       …to here.
+       ══════════════════════════════════════════════════════════════ -->
 
   <div class="divider"></div>
 
@@ -243,6 +288,20 @@
 
     <p class="memorial-footer">Luxembourg &nbsp;&middot;&nbsp; 1977 – 2024</p>
   </section>
+
+  <script>
+    const toggle = document.getElementById('poem-toggle');
+    const content = document.getElementById('poem-content');
+    const label = toggle.querySelector('.poem-toggle-label');
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', !isOpen);
+      content.setAttribute('aria-hidden', isOpen);
+      content.classList.toggle('poem-open', !isOpen);
+      label.textContent = isOpen ? 'Read the poem' : 'Close';
+      document.getElementById('poem-wrap').classList.toggle('poem-revealed', !isOpen);
+    });
+  </script>
 
   <script>
     const observer = new IntersectionObserver(

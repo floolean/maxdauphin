@@ -79,17 +79,18 @@ body::before {
 }
 
 .hero-name {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3.5rem, 10vw, 7.5rem);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(4rem, 11vw, 8.5rem);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: 0.01em;
   color: var(--cream);
   margin-bottom: 1.25rem;
 }
 
 .hero-name em {
   font-style: italic;
+  font-weight: 500;
   color: var(--gold);
 }
 
@@ -284,6 +285,97 @@ p:last-child { margin-bottom: 0; }
   color: var(--muted);
 }
 
+/* ── POEM ── */
+.poem-section { padding-top: 0; }
+
+.poem-wrap {
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  background: var(--card-bg);
+  transition: background 0.4s ease;
+}
+
+.poem-wrap.poem-revealed {
+  background: rgba(155, 103, 38, 0.05);
+}
+
+.poem-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.poem-intro {
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.poem-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.poem-toggle:hover {
+  background: rgba(155, 103, 38, 0.08);
+}
+
+.poem-toggle-icon {
+  transition: transform 0.35s ease;
+  flex-shrink: 0;
+}
+
+.poem-toggle[aria-expanded="true"] .poem-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.poem-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.poem-content.poem-open {
+  max-height: 1800px;
+}
+
+.poem-body {
+  padding-top: 2.5rem;
+  border: none;
+  margin: 0;
+}
+
+.poem-stanza {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.9;
+  color: rgba(42, 31, 20, 0.8);
+  margin-bottom: 2rem;
+}
+
+.poem-stanza:last-child { margin-bottom: 0; }
+
+.poem-closing {
+  color: var(--gold) !important;
+  font-weight: 500;
+}
+
 /* ── ARTWORK GALLERY ── */
 .artwork-grid {
   display: grid;
@@ -395,7 +487,7 @@ p:last-child { margin-bottom: 0; }
 }
 
 .memorial-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: clamp(1.5rem, 4vw, 2.4rem);
   color: var(--gold);
