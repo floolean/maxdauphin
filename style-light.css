@@ -288,85 +288,22 @@ p:last-child { margin-bottom: 0; }
 /* ── POEM ── */
 .poem-section { padding-top: 0; }
 
-.poem-wrap {
-  border: 1px solid var(--border);
-  padding: 2.5rem;
-  background: var(--card-bg);
-  transition: background 0.4s ease;
-}
-
-.poem-wrap.poem-revealed {
-  background: rgba(155, 103, 38, 0.05);
-}
-
-.poem-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.poem-intro {
-  font-size: 0.88rem;
-  color: var(--muted);
-  font-style: italic;
-  margin: 0;
-}
-
-.poem-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--gold);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 0.6rem 1.1rem;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
-  white-space: nowrap;
-}
-
-.poem-toggle:hover {
-  background: rgba(155, 103, 38, 0.08);
-}
-
-.poem-toggle-icon {
-  transition: transform 0.35s ease;
-  flex-shrink: 0;
-}
-
-.poem-toggle[aria-expanded="true"] .poem-toggle-icon {
-  transform: rotate(180deg);
-}
-
-.poem-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.75s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.poem-content.poem-open {
-  max-height: 1800px;
-}
-
 .poem-body {
-  padding-top: 2.5rem;
   border: none;
   margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--border);
+  padding-left: 2.5rem;
 }
 
 .poem-stanza {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  line-height: 1.9;
-  color: rgba(42, 31, 20, 0.8);
-  margin-bottom: 2rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  line-height: 2;
+  color: rgba(42, 31, 20, 0.75);
+  margin-bottom: 2.25rem;
+  font-weight: 400;
 }
 
 .poem-stanza:last-child { margin-bottom: 0; }
