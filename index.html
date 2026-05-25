@@ -7,432 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --ink:    #1a1612;
-      --warm:   #f5f0e8;
-      --cream:  #faf7f2;
-      --gold:   #c8a96e;
-      --rust:   #a0522d;
-      --muted:  #7a6f62;
-      --border: rgba(200,169,110,0.25);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--ink);
-      color: var(--warm);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      line-height: 1.75;
-      overflow-x: hidden;
-    }
-
-    /* ── GRAIN OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-canvas {
-      position: absolute;
-      inset: 0;
-      opacity: 0.12;
-      pointer-events: none;
-    }
-
-    .hero-canvas circle, .hero-canvas ellipse, .hero-canvas rect {
-      fill: none;
-      stroke: var(--gold);
-    }
-
-    .hero-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2.5rem;
-      opacity: 0.85;
-    }
-
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 10vw, 7.5rem);
-      font-weight: 500;
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      color: var(--cream);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .hero-dates {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.15rem;
-      color: var(--gold);
-      margin-bottom: 2.5rem;
-      letter-spacing: 0.05em;
-    }
-
-    .hero-tagline {
-      font-size: 0.9rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 5rem;
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--muted);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      animation: fadeFloat 3s ease-in-out infinite;
-    }
-
-    .hero-scroll::after {
-      content: '';
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-    }
-
-    @keyframes fadeFloat {
-      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
-      50%       { opacity: 0.8; transform: translateX(-50%) translateY(6px); }
-    }
-
-    /* ── PORTRAIT PLACEHOLDER ── */
-    .portrait-wrap {
-      width: min(320px, 80vw);
-      aspect-ratio: 3/4;
-      margin: 0 auto 3rem;
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      background: rgba(255,255,255,0.03);
-    }
-
-    .portrait-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(20%) contrast(1.05);
-    }
-
-    .portrait-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      gap: 1rem;
-    }
-
-    .portrait-placeholder svg {
-      opacity: 0.3;
-    }
-
-    /* ── LAYOUT ── */
-    .section {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 7rem 2rem;
-    }
-
-    .section--wide {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 7rem 2rem;
-    }
-
-    .section-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 400;
-      line-height: 1.2;
-      color: var(--cream);
-      margin-bottom: 1.75rem;
-    }
-
-    h2 em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    p {
-      color: rgba(245,240,232,0.75);
-      font-size: 1.05rem;
-      margin-bottom: 1.25rem;
-    }
-
-    p:last-child { margin-bottom: 0; }
-
-    /* ── DIVIDER ── */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      margin: 0 auto;
-      max-width: 780px;
-    }
-
-    /* ── PULL QUOTE ── */
-    .pull-quote {
-      border-left: 2px solid var(--gold);
-      padding: 1.5rem 2rem;
-      margin: 3rem 0;
-      background: rgba(200,169,110,0.05);
-    }
-
-    .pull-quote p {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-      line-height: 1.6;
-      color: var(--cream);
-      margin: 0 0 0.75rem;
-    }
-
-    .pull-quote cite {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-style: normal;
-    }
-
-    /* ── JOURNEY GRID ── */
-    .journey-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-top: 3rem;
-    }
-
-    .journey-item {
-      background: var(--ink);
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      transition: background 0.3s ease;
-    }
-
-    .journey-item:hover {
-      background: rgba(200,169,110,0.06);
-    }
-
-    .journey-year {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .journey-place {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      color: var(--cream);
-      line-height: 1.3;
-    }
-
-    .journey-desc {
-      font-size: 0.88rem;
-      color: var(--muted);
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* ── ARTWORK GRID ── */
-    .artwork-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 600px) {
-      .artwork-grid { grid-template-columns: 1fr; }
-    }
-
-    .artwork-slot {
-      aspect-ratio: 4/5;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      gap: 0.75rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .artwork-slot img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .artwork-slot .slot-label {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── ATTRIBUTES ── */
-    .attributes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 2rem 0;
-    }
-
-    .attr-tag {
-      border: 1px solid var(--border);
-      padding: 0.35rem 0.9rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* ── MEMORIAL CLOSING ── */
-    .memorial {
-      text-align: center;
-      padding: 8rem 2rem 10rem;
-      position: relative;
-    }
-
-    .memorial::before {
-      content: '';
-      display: block;
-      width: 1px;
-      height: 80px;
-      background: linear-gradient(to bottom, transparent, var(--gold));
-      margin: 0 auto 4rem;
-    }
-
-    .memorial-name {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-
-    .memorial-dates {
-      font-size: 0.8rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 3rem;
-    }
-
-    .memorial p {
-      max-width: 520px;
-      margin: 0 auto 1rem;
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
-
-    .memorial-footer {
-      margin-top: 5rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(122,111,98,0.4);
-    }
-
-    /* ── ANIMATED ENTRANCE ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      .section, .section--wide { padding: 5rem 1.5rem; }
-      .journey-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <!-- Theme: swap to style-light.css for the warm/light version -->
+  <link rel="stylesheet" href="style-light.css" />
 </head>
 <body>
 
-  <!-- HERO -->
+  <!-- ── HERO ── -->
   <section class="hero">
     <svg class="hero-canvas" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <circle cx="200" cy="150" r="280" stroke-width="0.5"/>
@@ -447,19 +28,26 @@
 
     <h1 class="hero-name">Max<br><em>Dauphin</em></h1>
 
+    <img
+      class="hero-signature"
+      src="signature.png"
+      alt="Max Dauphin's signature"
+      aria-hidden="true"
+    />
+
     <p class="hero-dates">26 August 1977 — 6 September 2024</p>
 
     <p class="hero-tagline">Painter &middot; Globetrotter &middot; Luxembourg</p>
 
-    <div class="hero-scroll">Scroll</div>
+    <div class="hero-scroll" aria-hidden="true">Scroll</div>
   </section>
 
-  <!-- PORTRAIT -->
-  <div class="section" style="padding-top: 0;">
-    <div class="portrait-wrap" id="portrait-wrap">
-      <!-- Replace with: <img src="portrait.jpg" alt="Max Dauphin" /> -->
+  <!-- ── PORTRAIT ── -->
+  <div class="section" style="padding-top: 0; padding-bottom: 0;">
+    <div class="portrait-wrap">
+      <!-- Add a portrait: <img src="portrait.jpg" alt="Max Dauphin" /> -->
       <div class="portrait-placeholder">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1">
+        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1">
           <circle cx="24" cy="18" r="8"/>
           <path d="M8 40c0-9 7-16 16-16s16 7 16 16"/>
         </svg>
@@ -468,7 +56,7 @@
     </div>
   </div>
 
-  <!-- WHO HE WAS -->
+  <!-- ── THE MAN ── -->
   <div class="section reveal">
     <p class="section-label">The Man</p>
     <h2>A radiant spirit,<br><em>a boundless heart</em></h2>
@@ -495,13 +83,14 @@
       believed art could be: communal, generous, alive.
     </p>
     <p>
-      He died on 6 September 2024 in Seignosse, in the south of France, in a tragic accident. He was 47 years old.
+      He died on 6 September 2024 in Seignosse, in the south of France, in a tragic accident.
+      He was 47 years old.
     </p>
   </div>
 
   <div class="divider"></div>
 
-  <!-- HIS ART -->
+  <!-- ── THE WORK ── -->
   <div class="section reveal">
     <p class="section-label">The Work</p>
     <h2>Painting life<br><em>in full colour</em></h2>
@@ -534,33 +123,47 @@
 
     <p>
       In 2019, his exhibition <em>Inside Out</em> at Neimënster — sixteen large-format canvases drawn from
-      Carl Jung's theories and mythology — was widely regarded as a career high point, a deeply personal
+      Carl Jung's theories and mythology — was widely regarded as a career high point: a deeply personal
       meditation on the inner life made vivid and public.
     </p>
     <p>
       In 2009, his painting <em>Medusa's Raft</em> received a Special Jury mention at the Francophone Games.
     </p>
+  </div>
 
-    <!-- Artwork image slots -->
+  <!-- ── ARTWORK GALLERY ── -->
+  <div class="section--wide reveal" style="padding-top: 0;">
     <div class="artwork-grid">
       <div class="artwork-slot">
-        <!-- Replace with: <img src="artwork1.jpg" alt="…" /> -->
-        <span class="slot-label">Artwork</span>
+        <img src="artworks/artwork_11.jpg" alt="Max Dauphin — painting, Senegal series" loading="lazy" />
+        <span class="artwork-caption">Senegal Series</span>
       </div>
       <div class="artwork-slot">
-        <!-- Replace with: <img src="artwork2.jpg" alt="…" /> -->
-        <span class="slot-label">Artwork</span>
+        <img src="artworks/artwork_13.jpg" alt="Max Dauphin — painting, snake bearer" loading="lazy" />
+        <span class="artwork-caption">Mixed technique on canvas</span>
       </div>
       <div class="artwork-slot">
-        <!-- Replace with: <img src="artwork3.jpg" alt="…" /> -->
-        <span class="slot-label">Artwork</span>
+        <img src="artworks/artwork_15.jpg" alt="Max Dauphin — painting, man with crocodile" loading="lazy" />
+        <span class="artwork-caption">Mixed technique on canvas</span>
+      </div>
+      <div class="artwork-slot">
+        <img src="artworks/artwork_25.jpg" alt="Max Dauphin — painting, stars series" loading="lazy" />
+        <span class="artwork-caption">Super Women, 2013 · 182 × 121 cm</span>
+      </div>
+      <div class="artwork-slot">
+        <img src="artworks/artwork_28.jpg" alt="Max Dauphin — Sardine Shack" loading="lazy" />
+        <span class="artwork-caption">Mixed technique on canvas</span>
+      </div>
+      <div class="artwork-slot">
+        <img src="artworks/artwork_41.jpg" alt="Max Dauphin — painting, green and yellow" loading="lazy" />
+        <span class="artwork-caption">Mixed technique on canvas</span>
       </div>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- THE JOURNEY -->
+  <!-- ── THE JOURNEY ── -->
   <div class="section--wide reveal">
     <div style="max-width: 780px; margin: 0 auto 2rem;">
       <p class="section-label">The Journey</p>
@@ -575,7 +178,7 @@
       <div class="journey-item">
         <span class="journey-year">Early Years</span>
         <span class="journey-place">Marseille, France</span>
-        <p class="journey-desc">Studied in Provence; discovered graffiti and street art. Showed his first paintings at 25.</p>
+        <p class="journey-desc">Studied in Provence; discovered graffiti and street art. Showed his first paintings at age 25.</p>
       </div>
       <div class="journey-item">
         <span class="journey-year">2005</span>
@@ -590,7 +193,7 @@
       <div class="journey-item">
         <span class="journey-year">2009</span>
         <span class="journey-place">Francophone Games</span>
-        <p class="journey-desc">Special Jury mention for the painting <em>Medusa's Raft</em>.</p>
+        <p class="journey-desc">Special Jury mention for <em>Medusa's Raft</em>.</p>
       </div>
       <div class="journey-item">
         <span class="journey-year">2011 – 2013</span>
@@ -609,7 +212,7 @@
       </div>
       <div class="journey-item">
         <span class="journey-year">Also</span>
-        <span class="journey-place">London & Beirut</span>
+        <span class="journey-place">London &amp; Beirut</span>
         <p class="journey-desc">International exhibitions with Chris Neuman and The Mongolian Project.</p>
       </div>
       <div class="journey-item">
@@ -622,7 +225,7 @@
 
   <div class="divider"></div>
 
-  <!-- MEMORIAL CLOSE -->
+  <!-- ── MEMORIAL ── -->
   <section class="memorial reveal">
     <p class="memorial-name">Max Dauphin</p>
     <p class="memorial-dates">26 August 1977 &nbsp;·&nbsp; 6 September 2024</p>
@@ -636,21 +239,19 @@
       He leaves behind his wife, their two children, a studio full of colour, and the countless
       lives he touched across the world he roamed.
     </p>
-    <p style="font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); font-size: 1.05rem; margin-top: 2.5rem;">
-      The work remains.
-    </p>
+    <p class="memorial-closer">The work remains.</p>
 
-    <p class="memorial-footer">Luxembourg &middot; 1977 – 2024</p>
+    <p class="memorial-footer">Luxembourg &nbsp;&middot;&nbsp; 1977 – 2024</p>
   </section>
 
   <script>
-    // Intersection observer for reveal animations
-    const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
-      { threshold: 0.12 }
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      }),
+      { threshold: 0.1 }
     );
-    reveals.forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
